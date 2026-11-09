@@ -90,7 +90,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateTime(LocalDateTime.now());
 
         //设置当前记录创建人id和修改人id
-        //TODO  后期改为当前用户登录的id
+
         employee.setCreateUser(BaseContext.getCurrentId());
         employee.setUpdateUser(BaseContext.getCurrentId());
 
@@ -111,7 +111,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //开始分页查询
         PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
         Page<Employee> page =employeeMapper.pageQuery(employeePageQueryDTO);
-        long total = page.getTotal();
+        long total = page.getTotal();       //`Page` 是`ArrayList` 子类，MyBatis 能直接装结果，同时带回`total`
         List<Employee> employees = page.getResult();
         return new PageResult(total,employees);
     }
